@@ -1,0 +1,34 @@
+{
+  "name": "foodparlor",
+  "version": "1.0.0",
+  "description": "food delivery and ordering app",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shivangi541/foodopedia.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "food-delivery"
+  ],
+  "author": "shivangi dutta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shivangi541/foodopedia/issues"
+  },
+  "homepage": "https://github.com/Shivangi541/foodopedia#readme",
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.5.2",
+    "react-router-dom": "^7.5.2"
+  }
+}
