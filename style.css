@@ -132,3 +132,26 @@
   margin: 5px;
   padding: 10px;
 }
+.user {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.user h2 {
+  font-size: 1.5rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.user p {
+  font-size: 1rem;
+  color: #444;
+}
