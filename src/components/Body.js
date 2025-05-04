@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer"; // Assuming you have this component
 import RestCard from "./RestCard"; // Assuming you have this component
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
 const Body = () => {
   const [allres, setAllRes] = useState([]); // Stores original list
   const [filteredRes, setFilteredRes] = useState([]); // Stores filtered list
@@ -55,7 +56,15 @@ const Body = () => {
     });
     setFilteredRes(searchFiltered);
   };
+  const onlineStatus = useOnlineStatus(); // Check online status
 
+  if (!onlineStatus) {
+    return (
+      <h1 className="offline">
+        Looks like you are offline. Please check your internet connection.
+      </h1>
+    );
+  }
   if (allres.length === 0) {
     return <Shimmer />;
   }

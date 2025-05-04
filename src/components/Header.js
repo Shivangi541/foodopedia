@@ -1,8 +1,10 @@
 import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
+  const onlineStatus = useOnlineStatus(); // Check online status
   return (
     <div id="header">
       <div className="logo">
@@ -10,6 +12,7 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul className="nav-list">
+          <li>onlineStatus :{onlineStatus ? "✅" : "❌"}</li>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -21,6 +24,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link to="/grocery">Grocery</Link>
           </li>
 
           <button
