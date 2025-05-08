@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const useNetworkStatus = () => {
-  const [online, setOnline] = useState(navigator.onLine);
+const useOnlineStatus = () => {
+  const [onlineStatus, setOnlineStatus] = useState(true);
+
+  // CHECK IF ONLINE , RETURN ONLINE STATUS
+  // ONLINE STATUS IS A BOOLEAN => TRUE or FALSE
 
   useEffect(() => {
-    const goOnline = () => setOnline(true);
-    const goOffline = () => setOnline(false);
-
-    window.addEventListener("online", goOnline);
-    window.addEventListener("offline", goOffline);
-
-    return () => {
-      window.removeEventListener("online", goOnline);
-      window.removeEventListener("offline", goOffline);
-    };
+    window.addEventListener("offline", () => {
+      setOnlineStatus(false);
+    });
+    window.addEventListener("online", () => {
+      setOnlineStatus(true);
+    });
   }, []);
 
-  return online;
+  return onlineStatus;
 };
 
-export default useNetworkStatus;
+export default useOnlineStatus;

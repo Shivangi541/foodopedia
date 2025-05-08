@@ -2,15 +2,25 @@ import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
+
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlineStatus = useOnlineStatus(); // Check online status
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div id="header">
       <div className="logo">
         <img className="logo" src={LOGO_URL} alt="logo" />
       </div>
-      <div className="nav-items">
+      
+      <div className={`mobile-menu-btn ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div className={`nav-items ${isMenuOpen ? 'active' : ''}`}>
         <ul className="nav-list">
           <li>onlineStatus :{onlineStatus ? "✅" : "❌"}</li>
           <li>
@@ -48,4 +58,5 @@ const Header = () => {
     </div>
   );
 };
+
 export default Header;

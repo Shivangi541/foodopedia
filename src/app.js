@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Cart from "./components/Cart";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
+
 //import Grocery from "./components/Grocery";
 
 const Grocery = lazy(() => import("./components/Grocery")); // Lazy load the Grocery component
@@ -15,8 +16,8 @@ const AppLayout = () => {
   return (
     <div className="app">
       <Header />
-
       <Outlet />
+      
     </div>
   );
 };

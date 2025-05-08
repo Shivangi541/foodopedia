@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/Shivangi541/foodopedia#readme",
   "devDependencies": {
-    "parcel": "^2.14.4"
+    "@tailwindcss/postcss": "^4.1.5",
+    "autoprefixer": "^10.4.21",
+    "parcel": "^2.14.4",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.5"
   },
   "dependencies": {
     "react": "^19.1.0",
