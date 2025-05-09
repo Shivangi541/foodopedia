@@ -23,4 +23,15 @@ const RestCard = ({ resObj }) => {
     </div>
   );
 };
+
+export const withOpenLabel = (RestCard) => {
+  return (props) => {
+    return (
+      <div>
+        <label>OPEN</label>
+        <RestCard {...props} />
+      </div>
+    );
+  };
+};
 export default RestCard;

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import Shimmer from "./Shimmer"; // Assuming you have this component
-import RestCard from "./RestCard"; // Assuming you have this component
+import Shimmer from "./Shimmer";
+import RestCard, { withOpenLabel } from "./RestCard";
 import { Link } from "react-router";
-import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
-  const [allres, setAllRes] = useState([]); // Stores original list
-  const [filteredRes, setFilteredRes] = useState([]); // Stores filtered list
-  const [isFiltered, setIsFiltered] = useState(false); // Filter toggle
-  const [searchText, setSearchText] = useState(""); // Search text
+  const [allres, setAllRes] = useState([]);
+  const [filteredRes, setFilteredRes] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const RestCardOpen = withOpenLabel(RestCard);
 
   useEffect(() => {
     const fetchRes = async () => {
@@ -23,7 +24,7 @@ const Body = () => {
 
         if (resData) {
           setAllRes(resData);
-          setFilteredRes(resData); // Initialize filtered list with all restaurants
+          setFilteredRes(resData);
         }
       } catch (error) {
         console.error("Error fetching data:", error.message);
@@ -35,14 +36,14 @@ const Body = () => {
 
   const handleFilterClick = () => {
     if (isFiltered) {
-      setFilteredRes(allres); // Reset to all restaurants
+      setFilteredRes(allres);
     } else {
       const topRated = allres.filter(
         (restaurant) => restaurant.info.avgRating > 4.4
       );
       setFilteredRes(topRated);
     }
-    setIsFiltered(!isFiltered); // Toggle state
+    setIsFiltered(!isFiltered);
   };
 
   const handleSearch = () => {
@@ -57,7 +58,8 @@ const Body = () => {
     });
     setFilteredRes(searchFiltered);
   };
-  const onlineStatus = useOnlineStatus(); // Check online status
+
+  const onlineStatus = useOnlineStatus();
 
   if (!onlineStatus) {
     return (
@@ -66,6 +68,7 @@ const Body = () => {
       </h1>
     );
   }
+
   if (allres.length === 0) {
     return <Shimmer />;
   }
@@ -90,12 +93,22 @@ const Body = () => {
         </button>
       </div>
       <div className="restaurant-list">
-        {filteredRes.map((restaurantcard) => (
+        {filteredRes.map((restaurant) => (
           <Link
-            key={restaurantcard.info.id}
-            to={"/restaurant/" + restaurantcard.info.id}
+            key={restaurant.info.id}
+            to={"/restaurant/" + restaurant.info.id}
           >
-            <RestCard resObj={restaurantcard} />
+            {/* {restaurant.availability?.opened ? (
+              <RestCardOpen resObj={restaurant} />
+            ) : (
+              <RestCard resObj={restaurant} />
+            )} */}
+            {/* if availability tag is there and if opened is true then we render higher order component else normal component*/}
+            {restaurant.availability && restaurant.availability.opened ? (
+              <RestCardOpen resObj={restaurant} />
+            ) : (
+              <RestCard resObj={restaurant} />
+            )}
           </Link>
         ))}
       </div>
