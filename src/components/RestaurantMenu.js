@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
+//import "./RestaurantMenu.css";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -29,7 +31,13 @@ const RestaurantMenu = () => {
   );
 
   const itemCards = itemCardsSection?.card?.card?.itemCards || [];
-
+  console.log(regularSection);
+  const category = regularSection.filter(
+    (c) =>
+      c?.card?.card?.["@type"] ===
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  );
+  console.log(category);
   return (
     <div className="menu-item">
       <div className="restaurant-info">
@@ -38,19 +46,27 @@ const RestaurantMenu = () => {
         <h3>{areaName}</h3>
         <h3>{costForTwoMessage}</h3>
       </div>
-      <div className="menu-list">
+      {/* <div className="menu-list">
         <p>Menu details will be displayed here:</p>
-        <ul>
+        {/* <ul>
           {itemCards.map((item) => (
             <li key={item?.card?.info?.id}>
               <span className="item-name">{item?.card?.info?.name}</span>
               <span className="item-price">
-                ₹{(item?.card?.info?.defaultPrice ?? item?.card?.info?.price) / 100}
+                ₹
+                {(item?.card?.info?.defaultPrice ?? item?.card?.info?.price) /
+                  100}
               </span>
             </li>
           ))}
-        </ul>
-      </div>
+        </ul> */}
+
+      {category.map((cat) => (
+        <RestaurantCategory
+          key={cat?.card?.card?.title}
+          data={cat?.card?.card}
+        />
+      ))}
     </div>
   );
 };
