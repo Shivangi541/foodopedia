@@ -1,26 +1,30 @@
 import { LOGO_URL } from "../utils/constants";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
-
+import UserContext from "../utils/UserContext"; // Assuming you have this context
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlineStatus = useOnlineStatus(); // Check online status
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const data = useContext(UserContext); // Get logged-in user from context
+  console.log("UserContext data:", data);
   return (
     <div id="header">
       <div className="logo">
         <img className="logo" src={LOGO_URL} alt="logo" />
       </div>
-      
-      <div className={`mobile-menu-btn ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+
+      <div
+        className={`mobile-menu-btn ${isMenuOpen ? "active" : ""}`}
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
         <span></span>
         <span></span>
         <span></span>
       </div>
 
-      <div className={`nav-items ${isMenuOpen ? 'active' : ''}`}>
+      <div className={`nav-items ${isMenuOpen ? "active" : ""}`}>
         <ul className="nav-list">
           <li>onlineStatus :{onlineStatus ? "✅" : "❌"}</li>
           <li>
@@ -47,12 +51,11 @@ const Header = () => {
               } else {
                 setBtnNameReact("Login");
               }
-
-              console.log(btnNameReact);
             }}
           >
             {btnNameReact}
           </button>
+          <li>User: {data?.loggedInUser || "Guest"}</li>
         </ul>
       </div>
     </div>

@@ -3,13 +3,16 @@ import Shimmer from "./Shimmer";
 import RestCard, { withOpenLabel } from "./RestCard";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus";
-
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
+//           <Suspense fallback={<Shimmer />}>
 const Body = () => {
   const [allres, setAllRes] = useState([]);
   const [filteredRes, setFilteredRes] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [searchText, setSearchText] = useState("");
   const RestCardOpen = withOpenLabel(RestCard);
+  const { LoggedInInfo, setLoggedInInfo } = useContext(UserContext);
 
   useEffect(() => {
     const fetchRes = async () => {
@@ -91,6 +94,17 @@ const Body = () => {
         <button className="filter-btn" onClick={handleFilterClick}>
           {isFiltered ? "Show All Restaurants" : "Top Rated Restaurants"}
         </button>
+        <label>User Name</label>
+        <input
+          id="username"
+          className="search-box"
+          type="text"
+          value={LoggedInInfo}
+          placeholder="Enter your name"
+          onChange={(e) => {
+            setLoggedInInfo(e.target.value);
+          }}
+        ></input>
       </div>
       <div className="restaurant-list">
         {filteredRes.map((restaurant) => (

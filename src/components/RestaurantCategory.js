@@ -1,12 +1,13 @@
 import { useState } from "react";
-
-const RestaurantCategory = ({ data }) => {
-  const [isOpen, setIsOpen] = useState(false);
+import { CDN_URL } from "../utils/constants";
+const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
+  // const [isOpen, setIsOpen] = useState(false);
 
   console.log("Category Data:", data);
 
   const toggleAccordion = () => {
-    setIsOpen(!isOpen);
+    // setIsOpen(!isOpen);
+    setShowIndex();
   };
 
   return (
@@ -20,16 +21,16 @@ const RestaurantCategory = ({ data }) => {
           {data?.title}({data?.itemCards.length})
         </span>
         <span
-          className={`transform transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+        // className={`transform transition-transform duration-300 ${
+        //   isOpen ? "rotate-180" : ""
+        // }`}
         >
           ⬇️
         </span>
       </div>
 
       {/* Accordion Body */}
-      {isOpen && (
+      {showItems && (
         <div className="px-4 pb-4">
           {data?.itemCards?.map((item) => (
             <div
@@ -37,6 +38,10 @@ const RestaurantCategory = ({ data }) => {
               className="flex justify-between items-center py-3 border-b border-gray-100 last:border-0"
             >
               <div className="flex-1">
+                <img
+                  src={CDN_URL + item?.card?.info?.imageId}
+                  className="w-16 "
+                ></img>
                 <h3 className="font-medium text-gray-900">
                   {item?.card?.info?.name}
                 </h3>
@@ -44,6 +49,9 @@ const RestaurantCategory = ({ data }) => {
                   ₹
                   {(item?.card?.info?.defaultPrice ?? item?.card?.info?.price) /
                     100}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {item?.card?.info?.description}
                 </p>
               </div>
               <div className="ml-4">

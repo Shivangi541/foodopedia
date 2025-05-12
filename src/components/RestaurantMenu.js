@@ -8,7 +8,7 @@ import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
-
+  const [showIndex, setShowIndex] = useState(null);
   if (!resInfo) return <Shimmer />;
 
   // Get restaurant info
@@ -61,10 +61,12 @@ const RestaurantMenu = () => {
           ))}
         </ul> */}
 
-      {category.map((cat) => (
+      {category.map((cat, index) => (
         <RestaurantCategory
           key={cat?.card?.card?.title}
           data={cat?.card?.card}
+          showItems={index === showIndex ? true : false}
+          setShowIndex={() => setShowIndex(index)}
         />
       ))}
     </div>
