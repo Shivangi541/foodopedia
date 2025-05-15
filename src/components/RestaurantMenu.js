@@ -31,13 +31,13 @@ const RestaurantMenu = () => {
   );
 
   const itemCards = itemCardsSection?.card?.card?.itemCards || [];
-  console.log(regularSection);
+  // console.log(regularSection);
   const category = regularSection.filter(
     (c) =>
       c?.card?.card?.["@type"] ===
       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
   );
-  console.log(category);
+  // console.log(category);
   return (
     <div className="menu-item">
       <div className="restaurant-info">

@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { CDN_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice"; // Assuming you have this action defined
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
   // const [isOpen, setIsOpen] = useState(false);
-
+  const dispatch = useDispatch();
   console.log("Category Data:", data);
 
   const toggleAccordion = () => {
     // setIsOpen(!isOpen);
     setShowIndex();
   };
-
+  // onclick{hanleAddToCart}
+  // onclick{() => handleAddToCart(item)}
+  // onclick{handleAddToCart(item)}
+  const handleAddToCart = (item) => {
+    // Logic to add item to cart
+    //dispatch an action to add item to cart
+    dispatch(addItem(item));
+    console.log("Item added to cart");
+  };
   return (
     <div className="border-b border-gray-200">
       {/* Accordion Header */}
@@ -55,7 +65,10 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
                 </p>
               </div>
               <div className="ml-4">
-                <button className="px-4 py-2 text-sm font-medium text-green-600 border border-green-600 rounded-md hover:bg-green-50">
+                <button
+                  className="px-4 py-2 text-sm font-medium text-green-600 border border-green-600 rounded-md hover:bg-green-50"
+                  onClick={() => handleAddToCart(item)}
+                >
                   Add +
                 </button>
               </div>

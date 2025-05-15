@@ -3,12 +3,15 @@ import { useState, useContext } from "react";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/useOnlineStatus"; // Assuming you have this hook
 import UserContext from "../utils/UserContext"; // Assuming you have this context
+import { useSelector } from "react-redux";
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const onlineStatus = useOnlineStatus(); // Check online status
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const data = useContext(UserContext); // Get logged-in user from context
   console.log("UserContext data:", data);
+  const cartItems = useSelector((store) => store.cart.items); // Get cart items from Redux store
+  console.log("cartItems", cartItems);
   return (
     <div id="header">
       <div className="logo">
@@ -37,7 +40,7 @@ const Header = () => {
             <Link to="/contact">Contact</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart"> 🛒{cartItems.length}</Link>
           </li>
           <li>
             <Link to="/grocery">Grocery</Link>
